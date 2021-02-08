@@ -1,21 +1,15 @@
-const LaunchButton = () => {
+const LaunchButton = (props) => {
   //   Press space bar
   const pushKey = (event, action) => {
-    // if (event.keyCode === 32) {
-    //   if (action === "keydown") {
-    //     // return toggle(true);
-    //   }
-    //   if (action === "keyup") {
-    //     // return toggle(false);
-    //   }
-    //   return;
-    // }
+    if (event.keyCode === 32) {
+      return props.selectItem;
+    }
   };
 
   document.addEventListener("keydown", (e) => pushKey(e, "keydown"));
   document.addEventListener("keyup", (e) => pushKey(e, "keyup"));
 
-  return <button onClick={() => console.log("lauch")}></button>;
+  return <button onClick={props.selectItem}>Launch</button>;
 };
 
 export default LaunchButton;

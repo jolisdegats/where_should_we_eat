@@ -1,5 +1,4 @@
 import PlaceCard from "./PlaceCard";
-import LaunchButton from "./LaunchButton";
 import styles from "./Sidebar.module.scss";
 
 const Sidebar = (props) => {
