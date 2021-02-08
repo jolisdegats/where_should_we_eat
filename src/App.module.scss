@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(
+    to right top,
+    #0f0096,
+    #1c2bad,
+    #2c49c3,
+    #3f65d7,
+    #5581e9,
+    #3795f4,
+    #12a8fc,
+    #00baff,
+    #00c5f6,
+    #00cdda,
+    #00d1af,
+    #0dd27a
+  );
+
+  //   background-color: #4158d0;
+  //   background-image: linear-gradient(
+  //     43deg,
+  //     #4158d0 0%,
+  //     #c850c0 46%,
+  //     #ffcc70 100%
+  //   );
+}
+
+.transparentContainer {
+  display: flex;
+  width: 70%;
+  margin: auto;
+  height: 80vh;
+  border-radius: 1em;
+  max-width: 80vw;
+  border: 0.05em solid rgb(235, 233, 233);
+
+  box-shadow: 50px 60px 100px rgba(0, 0, 0, 0.05);
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1em;
+  flex: 1;
+  border-radius: 0 1em 1em 0;
+  backdrop-filter: blur(0.2em);
+  background: linear-gradient(
+    111.29deg,
+    rgba(255, 255, 255, 0.53) -1.83%,
+    rgba(255, 255, 255, 0) 109.95%
+  );
+}
