@@ -12,12 +12,7 @@ const SpinWheel = (props) => {
     wheelSize * Math.tan(((360 / items.length / 2) * Math.PI) / 180);
 
   const [selectedItem, setSelectedItem] = useState(1);
-  const [wheelVars, setWheelVars] = useState({
-    "--wheel-size": `${wheelSize}em`,
-    "--PI": Math.PI,
-    "--nb-turn": turns,
-    "--spinning-duration": `${spinDuration}ms`,
-  });
+  const [wheelVars, setWheelVars] = useState({});
   const [spinning, setSpinning] = useState("");
 
   const selectItem = () => {
@@ -37,12 +32,15 @@ const SpinWheel = (props) => {
   useEffect(
     () =>
       setWheelVars({
-        ...wheelVars,
+        "--wheel-size": `${wheelSize}em`,
+        "--PI": Math.PI,
+        "--nb-turn": turns,
+        "--spinning-duration": `${spinDuration}ms`,
         "--nb-item": items.length,
         "--selected-item": selectedItem - 1,
         "--item-bg-size": polygonSide + "em",
       }),
-    [selectedItem, items, polygonSide, wheelVars]
+    [wheelSize, turns, spinDuration, items, selectedItem, polygonSide]
   );
 
   return (

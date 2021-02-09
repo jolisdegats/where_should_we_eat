@@ -12,8 +12,6 @@ const PlaceCard = (props) => {
     );
   };
 
-  console.log(places);
-
   return (
     <div className={styles.placeCard}>
       <input

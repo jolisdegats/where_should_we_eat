@@ -1,95 +1,34 @@
-import Sidebar from "./components/Sidebar";
-import SpinWheel from "./components/SpinWheel";
+import { useEffect, useContext, useState } from "react";
+import { firebaseAuth } from "./utils/context/AuthProvider";
+import { Route, Switch } from "react-router-dom";
+import SignUp from "./views/login/SignUp";
+import SignIn from "./views/login/SignIn";
+import Main from "./views/Main";
 import styles from "./App.module.scss";
-import { useState } from "react";
 
 const App = () => {
-  const [places, setPlaces] = useState([
-    {
-      isSelected: true,
-      id: 1,
-      name: "Raphael",
-      link: "",
-      icon: "",
-      color: "#7400B8",
-    },
-    {
-      isSelected: true,
-      id: 2,
-      name: "Italien",
-      link: "",
-      icon: "",
-      color: "#6930C3",
-    },
-    {
-      isSelected: true,
-      id: 3,
-      name: "Sushi",
-      link: "",
-      icon: "",
-      color: "#5E60CE",
-    },
-    {
-      isSelected: true,
-      id: 4,
-      name: "Coréen",
-      link: "",
-      icon: "",
-      color: "#5390D9",
-    },
-    {
-      isSelected: true,
-      id: 5,
-      name: "Soupe",
-      link: "",
-      icon: "",
-      color: "#4EA8DE",
-    },
-    {
-      isSelected: true,
-      id: 6,
-      name: "Burger",
-      link: "",
-      icon: "",
-      color: "#48BFE3",
-    },
-    {
-      isSelected: true,
-      id: 7,
-      name: "Bagel",
-      link: "",
-      icon: "",
-      color: "#56CFE1",
-    },
-    {
-      isSelected: true,
-      id: 8,
-      name: "Pegast",
-      link: "",
-      icon: "",
-      color: "#64DFDF",
-    },
-    {
-      isSelected: true,
-      id: 9,
-      name: "Jour",
-      link: "",
-      icon: "",
-      color: "#72EFDD",
-    },
-  ]);
+  const { token, setToken } = useContext(firebaseAuth);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const items = places.filter((item) => item.isSelected === true);
+  useEffect(() => {
+    localStorage.token && setToken(localStorage.token);
+    setIsLoading(false);
+  }, [setToken]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.transparentContainer}>
-        <Sidebar setPlaces={setPlaces} places={places}></Sidebar>
-        <div className={styles.content}>
-          <SpinWheel items={items}></SpinWheel>
-        </div>
+    !isLoading && (
+      <div className={styles.container}>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            component={() => (token ? <Main /> : <SignIn />)}
+          />
+          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/signin" component={SignIn} />
+        </Switch>
       </div>
-    </div>
+    )
   );
 };
 

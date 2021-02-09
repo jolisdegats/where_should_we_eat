@@ -1,0 +1,55 @@
+nav {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  position: absolute;
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 0.5px #ffffff3b;
+    outline: none;
+    border-radius: 14%;
+    box-shadow: 9.31px 9.31px 26px #6e96e4ad, -9.31px -9.31px 26px #98e9fff0;
+    cursor: pointer;
+    color: white;
+    margin: 1em;
+    padding: 0.8em 1em;
+    background: #ffffff2e;
+    backdrop-filter: blur(0.2em);
+
+    img {
+      height: 2em;
+      width: 2em;
+    }
+  }
+}
+
+.transparentContainer {
+  display: flex;
+  width: 70%;
+  margin: auto;
+  height: 80vh;
+  border-radius: 1em;
+  max-width: 80vw;
+  border: 0.05em solid rgb(235, 233, 233);
+
+  box-shadow: 50px 60px 100px rgba(0, 0, 0, 0.05);
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1em;
+  flex: 1;
+  border-radius: 0 1em 1em 0;
+  backdrop-filter: blur(0.2em);
+  background: linear-gradient(
+    111.29deg,
+    rgba(255, 255, 255, 0.53) -1.83%,
+    rgba(255, 255, 255, 0) 109.95%
+  );
+}
