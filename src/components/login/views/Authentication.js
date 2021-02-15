@@ -38,8 +38,11 @@ const Authentication = (props) => {
   };
   const sidebar_alignment =
     currentPage === signinParams.value
-      ? {}
-      : { left: 0, "border-radius": "  1em 0 0 1em" };
+      ? {
+          "border-radius": "0 1em 1em 0",
+          "box-shadow": "-2px 0px 10px 0px rgb(0 0 0 / 20%)",
+        }
+      : { left: 0 };
   const form_alignment =
     currentPage === signinParams.value
       ? { left: 0, "border-radius": " 1em 0 0 1em" }

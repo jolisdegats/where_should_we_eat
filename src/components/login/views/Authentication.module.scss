@@ -7,9 +7,10 @@
 
   .authSidebar {
     @include sidebar;
+    border-radius: 1em 0 0 1em;
     width: 20em;
     background-color: #f9f9f9;
-    box-shadow: 4px 0px 0px 0px rgb(0 0 0 / 30%);
+    box-shadow: 2px 0px 10px 0px rgb(0 0 0 / 20%);
     position: absolute;
     height: 100%;
     transition: all var(--animation_duration);

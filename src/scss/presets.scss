@@ -48,7 +48,6 @@ button {
   height: 80vh;
   border-radius: 1em;
   max-width: 80vw;
-  box-shadow: 50px 60px 100px rgba(0, 0, 0, 0.05);
 }
 
 @mixin transparentContainer_content {
@@ -66,6 +65,7 @@ button {
     rgba(255, 255, 255, 0.53) -1.83%,
     rgba(255, 255, 255, 0) 109.95%
   );
+  box-shadow: 50px 60px 100px rgba(0, 0, 0, 0.05);
 }
 
 @mixin sidebar {
@@ -75,4 +75,5 @@ button {
   border-radius: 1em 0 0 1em;
   display: flex;
   flex-direction: column;
+  box-shadow: 50px 60px 100px rgba(0, 0, 0, 0.05);
 }
