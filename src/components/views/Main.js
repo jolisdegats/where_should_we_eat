@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
-import { firebaseAuth } from "../utils/context/AuthProvider";
-import Sidebar from "../components/Sidebar";
-import SpinWheel from "../components/SpinWheel";
+import { firebaseAuth } from "../../utils/context/AuthProvider";
+import Sidebar from "../blocks/Sidebar";
+import SpinWheel from "../blocks/SpinWheel";
 import styles from "./Main.module.scss";
 
 const Main = () => {

@@ -1,3 +1,5 @@
+@import "../../scss/presets.scss";
+
 nav {
   display: flex;
   justify-content: flex-end;
@@ -27,29 +29,9 @@ nav {
 }
 
 .transparentContainer {
-  display: flex;
-  width: 70%;
-  margin: auto;
-  height: 80vh;
-  border-radius: 1em;
-  max-width: 80vw;
-  border: 0.05em solid rgb(235, 233, 233);
-
-  box-shadow: 50px 60px 100px rgba(0, 0, 0, 0.05);
+  @include transparentContainer;
 }
 
 .content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 1em;
-  flex: 1;
-  border-radius: 0 1em 1em 0;
-  backdrop-filter: blur(0.2em);
-  background: linear-gradient(
-    111.29deg,
-    rgba(255, 255, 255, 0.53) -1.83%,
-    rgba(255, 255, 255, 0) 109.95%
-  );
+  @include transparentContainer_content;
 }

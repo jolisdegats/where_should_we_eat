@@ -2,7 +2,7 @@ import "../firebaseIndex";
 import firebase from "firebase";
 
 export const authMethods = {
-  signUp: (email, password, setErrors, setToken) => {
+  signup: (email, password, setErrors, setToken) => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -12,10 +12,10 @@ export const authMethods = {
         setToken(window.localStorage.token);
       })
       .catch((err) => {
-        setErrors((prev) => [...prev, err.message]);
+        setErrors(err.message);
       });
   },
-  signIn: (email, password, setErrors, setToken) => {
+  signin: (email, password, setErrors, setToken) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -25,11 +25,11 @@ export const authMethods = {
         setToken(window.localStorage.token);
       })
       .catch((err) => {
-        setErrors((prev) => [...prev, err.message]);
+        setErrors(err.message);
       });
   },
 
-  signOut: (setErrors, setToken) => {
+  signout: (setErrors, setToken) => {
     firebase
       .auth()
       .signOut()
@@ -38,7 +38,7 @@ export const authMethods = {
         setToken(null);
       })
       .catch((err) => {
-        setErrors((prev) => [...prev, err.message]);
+        setErrors(err.message);
         localStorage.removeItem("token");
         setToken(null);
       });
