@@ -78,54 +78,56 @@ const Authentication = (props) => {
           className={`${styles.authSidebar}`}
           style={{ ...animationVars, ...sidebar_alignment }}
         >
-          {signinParams.path.includes(currentPage) ? (
-            <div style={{ ...button_animation }}>
-              <img src="/images/spinWheelGif.gif" alt="spinning wheel"></img>
-              <h2 className="sidebarTitle">Lunch companion</h2>
-              <p>
-                Don't know what to eat today? Feeling uninspired as hell? Well
-                we've got your back!
-              </p>
-              <p>
-                <b>"Where Should We Eat"</b> will choose your next awesome lunch
-                for you based on scientific yet unseizable universe laws (aka
-                "complete chance").
-              </p>
-              <p>Spin the wheel, and let the fun begin!</p>
+          <div style={{ ...button_animation }}>
+            <img
+              src={
+                signinParams.path.includes(currentPage)
+                  ? "/images/spinWheelGif.gif"
+                  : "/images/catFull.gif"
+              }
+              alt="spinning wheel"
+            ></img>
+            {signinParams.path.includes(currentPage) ? (
+              <>
+                <h2 className="sidebarTitle">Lunch companion</h2>
+                <p>
+                  Don't know what to eat today? Feeling uninspired as hell? Well
+                  we've got your back!
+                </p>
+                <p>
+                  <b>"Where Should We Eat"</b> will choose your next awesome
+                  lunch for you based on scientific yet unseizable universe laws
+                  (aka "complete chance").
+                </p>
+                <p>Spin the wheel, and let the fun begin!</p>
+              </>
+            ) : (
+              <>
+                <h2 className="sidebarTitle">First time here?</h2>
+                <p>It feels so cool to meet new visitors!</p>
+                <p>
+                  Please make yourself at home. We promise we won't use your
+                  data for dark and evil operations.
+                </p>
+                <p>
+                  Feel free to ask questions or submit improvment ideas on our
+                  contact page (or on the github project page).
+                </p>
+                <p>Life is cool when filled with food!</p>
+              </>
+            )}
 
-              <br />
-              <button
-                onClick={() => {
-                  changePage();
-                }}
-              >
-                {signupParams.leftButtonText}
-              </button>
-            </div>
-          ) : (
-            <div style={{ ...button_animation }}>
-              <img src="/images/catFull.gif" alt="spinning wheel"></img>
-              <h2 className="sidebarTitle">First time here?</h2>
-              <p>It feels so cool to meet new visitors!</p>
-              <p>
-                Please make yourself at home. We promise we won't use your data
-                for dark and evil operations.
-              </p>
-              <p>
-                Feel free to ask questions or submit improvment ideas on our
-                contact page (or on the github project page).
-              </p>
-              <p>Life is cool when filled with food!</p>
-              <br />
-              <button
-                onClick={() => {
-                  changePage();
-                }}
-              >
-                {signinParams.leftButtonText}
-              </button>
-            </div>
-          )}
+            <br />
+            <button
+              onClick={() => {
+                changePage();
+              }}
+            >
+              {signinParams.path.includes(currentPage)
+                ? signupParams.leftButtonText
+                : signinParams.leftButtonText}
+            </button>
+          </div>
         </aside>
 
         <SignForm
