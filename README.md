@@ -1,7 +1,7 @@
 <p align="center">
-<!-- <a href="https://where-should-we-eat-today-jolisdegats.netlify.app/ ">
-  <img src="https://res.cloudinary.com/dqp905mfv/image/upload/v1603452120/portfolio/ReadMe/marceau_cdlfrb.jpg" alt ="Where should we eat today - Banner"  />
-  </a> -->
+<a href="https://where-should-we-eat-today-jolisdegats.netlify.app/ ">
+  <img src="https://res.cloudinary.com/dqp905mfv/image/upload/v1613785817/portfolio/ReadMe/wsweat_hie7de.jpg" alt ="Where should we eat today - Banner"  />
+  </a>
 </p>
 <br/>
 <br/>
@@ -12,7 +12,7 @@
 The demo of the project is currently hosted on Netlify (frontend). Have a look at it and feel free to give some feedback. </p>
 
 <h3>
-<a href="https://where-should-we-eat-today-jolisdegats.netlify.app/">Live Demo (WIP)</a>
+<a href="https://where-should-we-eat-jolisdegats.netlify.app/">Live Demo (WIP)</a>
 </h3>
   <br/>
     <br/>
