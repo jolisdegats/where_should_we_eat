@@ -5,7 +5,7 @@
 </p>
 <br/>
 <br/>
-<h1>Where should we eat today (React)</h1>
+<h1>Where should we eat (React)</h1>
 <br/>
 <p>PLEASE NOTE THIS IS A WIP PROJECT</p>
 <p>Side-project mainly focused on SCSS (transitions, shadows...). I had fun playing with neumorphism and glassmorphism UI trends. Authentication is handled by Firebase.</p><p>
@@ -24,20 +24,21 @@ Frontend : Firebase, FirebaseUI, React, React-router-dom, SASS</p>
 
 <h2>Install</h2>
 
-<p>Just run <code>yarn</code> in your console to install all dependencies and <code>yarn start</code> to launch. Local demo should open on http://localhost:3000.</p>
+<p>Just run <code>yarn</code> in your IDE to install all dependencies and <code>yarn start</code> to launch. Local demo should open on http://localhost:3000.</p>
  <br/>
 
 <h2>Incoming features</h2>
 
 <ul>
 <li>Restaurants list styling</li>
-<li>Handle 2 (or less) selected restaurants</li>
 <li>Add, delete, edit restaurants (backend + DB)</li>
 <li>Select/unselect all restaurants</li>
 <li>Pop-up animation with result</li>
 <li>404 page</li>
 <li>OPTIONAL: Customize wheel parameters (color scheme, icons, spins, durations)</li>
 </ul>
+
+<p>Full roadmap available <a href="https://www.notion.so/3850ce45fedc4c4a93ccf5dd1b560795?v=2d9e7ea826844be89ecaa3da52083801">here</a></p>
 
  <br/>
 
@@ -46,6 +47,7 @@ Frontend : Firebase, FirebaseUI, React, React-router-dom, SASS</p>
 <p>Spinning wheel by <a href="https://github.com/hadriengerard">@hadriengerard</a></p>
 <p>Login page animation by <a href="https://github.com/ricardoolivaalonso">@ricardoolivaalonso</a></p>
 <p>Neumorphic buttons by <a href="https://github.com/devloop01">@devloop001</a></p>
+<p>Loader by <a href="https://github.com/dicson-ui">@dicson-ui</a></p>
 
  <br/>
 

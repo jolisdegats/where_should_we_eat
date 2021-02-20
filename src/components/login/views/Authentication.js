@@ -100,6 +100,14 @@ const Authentication = (props) => {
                   (aka "complete chance").
                 </p>
                 <p>Spin the wheel, and let the fun begin!</p>
+                <br />
+                <button
+                  onClick={() => {
+                    changePage();
+                  }}
+                >
+                  {signupParams.leftButtonText}
+                </button>
               </>
             ) : (
               <>
@@ -114,19 +122,16 @@ const Authentication = (props) => {
                   contact page (or on the github project page).
                 </p>
                 <p>Life is cool when filled with food!</p>
+                <br />
+                <button
+                  onClick={() => {
+                    changePage();
+                  }}
+                >
+                  {signinParams.leftButtonText}
+                </button>
               </>
             )}
-
-            <br />
-            <button
-              onClick={() => {
-                changePage();
-              }}
-            >
-              {signinParams.path.includes(currentPage)
-                ? signupParams.leftButtonText
-                : signinParams.leftButtonText}
-            </button>
           </div>
         </aside>
 
