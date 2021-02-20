@@ -1,6 +1,6 @@
 <p align="center">
-<a href="https://where-should-we-eat-today-jolisdegats.netlify.app/ ">
-  <img src="https://res.cloudinary.com/dqp905mfv/image/upload/v1613785817/portfolio/ReadMe/wsweat_hie7de.jpg" alt ="Where should we eat today - Banner"  />
+<a href="https://where-should-we-eat-jolisdegats.netlify.app/ ">
+  <img src="https://res.cloudinary.com/dqp905mfv/image/upload/v1613785817/portfolio/ReadMe/wsweat_hie7de.jpg" alt ="Where should we eat - Banner"  />
   </a>
 </p>
 <br/>
