@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import LaunchButton from "./LaunchButton";
+// import LaunchButton from "./LaunchButton";
 import "./SpinWheel.scss";
 
 const SpinWheel = (props) => {
@@ -18,6 +18,10 @@ const SpinWheel = (props) => {
   const selectItem = () => {
     // SelectedItem must be different from previous one
     const itemsWithoutSelected = items.filter((item) => {
+      // if only one item, return this item
+      if (items.length < 3) {
+        return item.id;
+      }
       return item.id !== selectedItem;
     });
     const randomItem =
@@ -43,6 +47,27 @@ const SpinWheel = (props) => {
     [wheelSize, turns, spinDuration, items, selectedItem, polygonSide]
   );
 
+  const stylingItems =
+    items.length === 1
+      ? {
+          wheelItem: {
+            height: "100%",
+            left: "0%",
+            width: "100%",
+          },
+          itemBackground: { "clip-path": "unset" },
+        }
+      : items.length < 3
+      ? {
+          wheelItem: {
+            height: "unset",
+            left: "50%",
+            width: "50%",
+          },
+          itemBackground: { "clip-path": "unset" },
+        }
+      : {};
+
   return (
     <>
       <div className="wheel-container">
@@ -54,12 +79,15 @@ const SpinWheel = (props) => {
           {items.map((item, index) => (
             <div
               className="wheel-item"
-              key={index}
-              style={{ "--item-nb": index }}
+              key={item.id}
+              style={{ "--item-nb": index, ...stylingItems.wheelItem }}
             >
               <div
                 className="itemBackground"
-                style={{ backgroundColor: item.color }}
+                style={{
+                  backgroundColor: item.color,
+                  ...stylingItems.itemBackground,
+                }}
               >
                 <p>{item.name}</p>
               </div>
@@ -67,7 +95,7 @@ const SpinWheel = (props) => {
           ))}
         </div>
       </div>
-      <LaunchButton selectItem={selectItem}></LaunchButton>
+      {/* <LaunchButton selectItem={selectItem}></LaunchButton> */}
     </>
   );
 };

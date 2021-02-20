@@ -45,7 +45,7 @@ Frontend : Firebase, FirebaseUI, React, React-router-dom, SASS</p>
 
 <p>Spinning wheel by <a href="https://github.com/hadriengerard">@hadriengerard</a></p>
 <p>Login page animation by <a href="https://github.com/ricardoolivaalonso">@ricardoolivaalonso</a></p>
-<p>Neumorphism buttons by <a href="https://github.com/devloop01">@devloop001</a></p>
+<p>Neumorphic buttons by <a href="https://github.com/devloop01">@devloop001</a></p>
 
  <br/>
 

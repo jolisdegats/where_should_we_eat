@@ -1,7 +1,16 @@
-@import "../../scss/presets.scss";
+@import "../../../scss/presets.scss";
 
 .sidebar {
   @include sidebar;
+  width: 25em;
+
+  h2 {
+    color: $black;
+    margin-top: 1em;
+  }
+  h3 {
+    margin: 1em 0em;
+  }
 }
 
 .placesList {

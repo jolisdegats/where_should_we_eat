@@ -81,6 +81,7 @@
         (-360deg * (var(--selected-item)) / var(--nb-item, 1))
     )
   );
+  pointer-events: none;
 }
 
 /* Wheel center */
@@ -106,7 +107,12 @@
 
   /* Item position */
   top: 50%;
-  left: 50%;
+  @if (var(--nb-item) == 1) {
+    left: 0%;
+    height: 100%;
+  } @else {
+    left: 50%;
+  }
   width: 50%;
   transform-origin: center left;
   transform: translateY(-50%)

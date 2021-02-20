@@ -1,11 +1,12 @@
-import { useState, useContext } from "react";
-import { firebaseAuth } from "../../utils/context/AuthProvider";
+import { useState, useContext, useEffect } from "react";
+import { firebaseAuth } from "../../../utils/context/AuthProvider";
+import LoadingSpinner from "../../common/LoadingSpinner";
 import Sidebar from "../blocks/Sidebar";
 import SpinWheel from "../blocks/SpinWheel";
 import styles from "./Main.module.scss";
 
 const Main = () => {
-  const { handleSignOut } = useContext(firebaseAuth);
+  const { handleSignOut, user, getUserName } = useContext(firebaseAuth);
 
   const [places, setPlaces] = useState([
     {
@@ -83,7 +84,7 @@ const Main = () => {
     {
       isSelected: true,
       id: 10,
-      name: "Test",
+      name: "Napoli Gang",
       link: "",
       icon: "",
       color: "#72EF0D",
@@ -91,7 +92,7 @@ const Main = () => {
     {
       isSelected: true,
       id: 11,
-      name: "Test2",
+      name: "Big Fernand",
       link: "",
       icon: "",
       color: "#02EF0D",
@@ -100,7 +101,13 @@ const Main = () => {
 
   const items = places.filter((item) => item.isSelected === true);
 
-  return (
+  useEffect(() => {
+    getUserName();
+  }, [getUserName]);
+
+  return !user ? (
+    <LoadingSpinner></LoadingSpinner>
+  ) : (
     <>
       <nav>
         <button onClick={() => handleSignOut()}>
