@@ -1,11 +1,11 @@
 import "../firebaseIndex";
-import firebase from "firebase";
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged} from "firebase/auth";
+
+const auth = getAuth()
 
 export const authMethods = {
   signup: (displayName, email, password, setErrors, setToken, setUser) => {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then(async (res) => {
         await res.user.updateProfile({
           displayName: displayName,
@@ -20,9 +20,8 @@ export const authMethods = {
       });
   },
   signin: (email, password, setErrors, setToken, setUser) => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
+    
+      signInWithEmailAndPassword(auth,email, password)
       .then(async (res) => {
         const token = await Object.entries(res.user)[5][1].b;
         localStorage.setItem("token", token);
@@ -34,10 +33,8 @@ export const authMethods = {
       });
   },
 
-  signout: (setErrors, setToken, setUser) => {
-    firebase
-      .auth()
-      .signOut()
+  signout: ( setErrors, setToken, setUser) => {
+      signOut(auth)
       .then(() => {
         localStorage.removeItem("token");
         setToken(null);
@@ -50,7 +47,7 @@ export const authMethods = {
       });
   },
   getusername: (setUser) => {
-    firebase.auth().onAuthStateChanged((user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user.displayName);
       }

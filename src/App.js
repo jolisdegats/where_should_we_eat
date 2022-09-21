@@ -4,15 +4,20 @@ import { Route, Switch } from "react-router-dom";
 import Authentication from "./components/login/views/Authentication";
 import Main from "./components/wheel/views/Main";
 import styles from "./App.module.scss";
+import useModal from "./utils/hooks/useModal";
+import Modal from "./components/common/Modal";
 
 const App = () => {
   const { token, setToken } = useContext(firebaseAuth);
   const [isLoading, setIsLoading] = useState(true);
 
+
   useEffect(() => {
     localStorage.token && setToken(localStorage.token);
     setIsLoading(false);
   }, [setToken]);
+
+  
 
   return (
     !isLoading && (

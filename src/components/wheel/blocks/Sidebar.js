@@ -1,13 +1,18 @@
 import { useContext } from "react";
 import { firebaseAuth } from "../../../utils/context/AuthProvider";
+import useModal from "../../../utils/hooks/useModal";
+import Modal from "../../common/Modal";
 import PlaceCard from "./PlaceCard";
 import styles from "./Sidebar.module.scss";
 
 const Sidebar = (props) => {
   const { user } = useContext(firebaseAuth);
-  const { places, setPlaces } = props;
+  const {places,  setPlaces } = props;
+  const { toggleModal, isModalOpen} = useModal()
 
-  return (
+
+  return (<>
+    <Modal hide={toggleModal} isModalOpen={isModalOpen}/>
     <aside className={styles.sidebar}>
       <h2>Hi {user}!</h2>
       <h3>You favorite places</h3>
@@ -24,9 +29,10 @@ const Sidebar = (props) => {
         })}
       </div>
       <div className={styles.cta}>
-        <button>Add a new place</button>
+        <button onClick={()=>toggleModal()}>Add a new place</button>
       </div>
     </aside>
+    </>
   );
 };
 

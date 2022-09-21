@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 // import LaunchButton from "./LaunchButton";
-import "./SpinWheel.scss";
+import styles from "./SpinWheel.module.scss";
 
 const SpinWheel = (props) => {
   const { items } = props;
@@ -55,7 +55,7 @@ const SpinWheel = (props) => {
             left: "0%",
             width: "100%",
           },
-          itemBackground: { "clip-path": "unset" },
+          itemBackground: { "clipPath": "unset" },
         }
       : items.length < 3
       ? {
@@ -64,26 +64,26 @@ const SpinWheel = (props) => {
             left: "50%",
             width: "50%",
           },
-          itemBackground: { "clip-path": "unset" },
+          itemBackground: { "clipPath": "unset" },
         }
       : {};
 
   return (
     <>
-      <div className="wheel-container">
+      <div className={styles["wheel-container"]}>
         <div
-          className={`wheel ${spinning}`}
+          className={`${styles["wheel"]} ${styles[spinning]}`}
           style={wheelVars}
           onClick={selectItem}
         >
           {items.map((item, index) => (
             <div
-              className="wheel-item"
+              className={`${styles["wheel-item"]} ${styles["animate"]} ${styles["rotate"]}`}
               key={item.id}
               style={{ "--item-nb": index, ...stylingItems.wheelItem }}
             >
               <div
-                className="itemBackground"
+                className={styles["itemBackground"]}
                 style={{
                   backgroundColor: item.color,
                   ...stylingItems.itemBackground,

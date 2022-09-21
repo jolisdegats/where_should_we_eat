@@ -13,11 +13,11 @@ const PlaceCard = (props) => {
   };
 
   return (
-    <div className={styles.placeCard}>
+    <div className={styles.placeCard} onClick={handleItemClick}>
       <input
         type="checkbox"
         checked={place.isSelected}
-        onChange={handleItemClick}
+        readOnly
       ></input>
       <p>{place.name}</p>
       {place.link && <p>{place.link}</p>}
