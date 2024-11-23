@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./SpinWheel.module.scss";
 import { Place } from "@/interfaces/place";
 import classNames from "classnames";
@@ -14,20 +14,29 @@ const SpinWheel = ({ items }: SpinWheelProps) => {
   const [spinning, setSpinning] = useState(false);
   const [totalRotation, setTotalRotation] = useState(0);
 
+  useEffect(() => {
+    setSelectedItem(1);
+    setSpinning(false);
+    setTotalRotation(0);
+  }, [items]);
+
   const polygonSide =
     WHEEL_CONFIG.size * Math.tan(((360 / items.length / 2) * Math.PI) / 180);
+
+  const handleSpinEnd = () => {
+    setSpinning(false);
+  };
 
   const handleSpin = () => {
     if (spinning) return;
 
-    const availableItems = items.filter((item) => item.id !== selectedItem);
-
-    if (availableItems.length === 0) {
-      availableItems.push(...items.filter((item) => item.id !== selectedItem));
-    }
+    const availableItems =
+      items.length < 3
+        ? items
+        : items.filter((item) => item.id !== selectedItem);
 
     const randomItem =
-      availableItems[Math.floor(Math.random() * availableItems.length)].id;
+      availableItems[Math.floor(Math.random() * availableItems.length)]?.id;
 
     const selectedSegment = items.findIndex((item) => item.id === randomItem);
     const degreesToSegment = -(selectedSegment * (360 / items.length));
@@ -38,8 +47,6 @@ const SpinWheel = ({ items }: SpinWheelProps) => {
     setSpinning(true);
     setSelectedItem(randomItem);
     setTotalRotation(newRotation);
-
-    setTimeout(() => setSpinning(false), WHEEL_CONFIG.spinDuration);
   };
 
   return (
@@ -64,6 +71,7 @@ const SpinWheel = ({ items }: SpinWheelProps) => {
           transitionTimingFunction: "cubic-bezier(0.2, 0.6, 0.3, 1)",
         }}
         onClick={handleSpin}
+        onTransitionEnd={handleSpinEnd}
       >
         {items.map((item, index) => (
           <WheelSegment
