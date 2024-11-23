@@ -1,0 +1,13 @@
+@use "@/styles/mixins.scss" as *;
+
+.form {
+    @include transparentContainer_content;
+    position: absolute;
+    height: 100%;
+    width: calc(100% - var(--sidebar_width));
+    transition: all var(--animation_duration);
+    left: var(--sidebar_width);
+    border-radius: 0 1em 1em 0;
+
+}
+  

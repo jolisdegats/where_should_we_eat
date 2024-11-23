@@ -1,0 +1,66 @@
+.inputWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+
+  input {
+    outline: none;
+    width: 100%;
+    padding: 0.8em 1em;
+    padding-right: 3em;
+    margin-bottom: 1em;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 2px 2px 6px 0 rgb(255 255 255 / 30%),
+      -2px -2px 6px 0 rgb(116 125 136 / 20%),
+      inset -2px -2px 6px 0 rgb(255 255 255 / 30%),
+      inset 2px 2px 6px 0 rgb(116 125 136 / 30%);
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    background: rgba(0, 0, 0, 0.03);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+
+    &:hover {
+      background: none;
+    }
+
+    &:focus {
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    &::placeholder {
+      color: white;
+      opacity: 0.5;
+    }
+  }
+}
+
+.iconButton {
+  color: white;
+  position: absolute;
+  right: 12px;
+  top: calc(50% - 0.5em);
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  &:hover {
+    color: white;
+    opacity: 0.7;
+  }
+
+  &--close {
+    opacity: 0.5 !important;
+    &:hover {
+      opacity: 1 !important;
+    }
+  }
+} 

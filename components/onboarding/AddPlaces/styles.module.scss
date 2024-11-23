@@ -1,0 +1,52 @@
+  .inputContainer {
+    width: 70%;
+  }
+  
+  .placesList {
+    width: 70%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+  
+  .placeItem {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8em 1em;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.03);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+    box-shadow: 2px 2px 6px 0 rgb(255 255 255 / 30%),
+      -2px -2px 6px 0 rgb(116 125 136 / 20%),
+      inset -2px -2px 6px 0 rgb(255 255 255 / 30%),
+      inset 2px 2px 6px 0 rgb(116 125 136 / 30%);
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+  
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+  }
+  
+  .removeButton {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 0.2em 0.5em;
+    font-size: 1em;
+    opacity: 0.7;
+    transition: opacity 0.2s ease-in-out;
+  
+    &:hover {
+      opacity: 1;
+    }
+  }

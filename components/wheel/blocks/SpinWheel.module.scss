@@ -1,0 +1,147 @@
+// Credits : https://codesandbox.io/s/github/hadriengerard/spinning-wheel-game-react
+
+.wheel-container {
+  --wheel-font: "Lato", "Quicksand", sans-serif;
+  --wheel-border-size: 0.3em;
+  --wheel-color: #a7bce03d;
+  --neutral-color: white;
+  --reset-duration: 0s;
+  --item-bg-size: 0;
+
+  display: block;
+  position: relative;
+  box-sizing: content-box;
+  width: calc(var(--wheel-size) + 2 * var(--wheel-border-size));
+  height: calc(var(--wheel-size) + 2 * var(--wheel-border-size));
+  padding: 3px;
+  margin: auto;
+  background-color: var(--neutral-color);
+  border: solid var(--neutral-color) 3px;
+  border-radius: 50%;
+  user-select: none;
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    border: solid transparent 20px;
+    border-left-width: 0;
+  }
+
+  &::before {
+    right: 5px;
+    border-right-color: var(--wheel-color);
+  }
+
+  &::after {
+    right: 0px;
+    border-right-color: var(--neutral-color);
+  }
+}
+
+/* Wheel */
+.wheel {
+  display: block;
+  position: relative;
+  box-sizing: content-box;
+  margin: auto;
+  width: var(--wheel-size);
+  height: var(--wheel-size);
+  overflow: hidden;
+  border-radius: 50%;
+  border: solid var(--wheel-color) var(--wheel-border-size);
+  background-color: var(--wheel-color);
+  cursor: pointer;
+  transition: transform var(--reset-duration);
+  transform: rotate(
+    calc((-360deg * (var(--selected-item)) / var(--nb-item, 1)))
+  );
+
+  &.spinning {
+    transition: transform var(--spinning-duration);
+    transform: rotate(
+      calc(
+        var(--nb-turn) * 360deg +
+          (-360deg * (var(--selected-item)) / var(--nb-item, 1))
+      )
+    );
+    pointer-events: none;
+  }
+
+  &::after {
+    display: block;
+    position: absolute;
+    content: "";
+    background-color: var(--neutral-color);
+    width: 1.5em;
+    height: 1.5em;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+  }
+}
+
+/* Wheel item */
+.wheel-item {
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  transform-origin: center left;
+  transform: translateY(-50%)
+    rotate(calc(var(--item-nb) * (360deg / var(--nb-item, 1))));
+  color: var(--neutral-color);
+  text-align: right;
+  font-family: var(--wheel-font);
+  display: flex;
+}
+
+.itemBackground {
+  height: var(--item-bg-size);
+  width: 100%;
+  position: relative;
+  right: 0em;
+  top: 0em;
+  -webkit-clip-path: polygon(0 50%, 100% 0, 110% 33%, 110% 66%, 100% 100%);
+  clip-path: polygon(0 50%, 100% 0, 110% 33%, 110% 66%, 100% 100%);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  p {
+    position: relative;
+    z-index: 2;
+    right: 2em;
+    color: white;
+  }
+}
+
+.animate {
+  animation-duration: 0.75s;
+  animation-name: animate-rotate;
+  animation-timing-function: cubic-bezier(0.26, 0.53, 0.74, 1.48);
+
+  &.rotate {
+    animation-name: animate-rotate;
+    animation-timing-function: ease;
+  }
+}
+
+@keyframes animate-rotate {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

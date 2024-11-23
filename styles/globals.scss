@@ -1,0 +1,42 @@
+@use './_mixins.scss' as mixins;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+
+
+/* Custom global styles after Tailwind */
+h1 {
+  width: 100%;
+  font-size: 1.5em;
+  padding: 1em 0em 0em 1em;
+  color: white;
+}
+
+h2 {
+  font-size: 2em;
+  margin-bottom: 1em;
+  color: white;
+  font-weight: bold;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0.5em 3em;
+  border-radius: 20px;
+  width: auto;
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+} 

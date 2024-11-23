@@ -1,0 +1,54 @@
+.inputWrapper {
+    input {
+        outline: none;
+        width: 100%;
+        max-width: 400px;
+        padding: 0.8em 1em;
+        margin-bottom: 1em;
+        border: none;
+    border-radius: 15px;
+    box-shadow: 2px 2px 6px 0 rgb(255 255 255 / 30%),
+      -2px -2px 6px 0 rgb(116 125 136 / 20%),
+      inset -2px -2px 6px 0 rgb(255 255 255 / 30%),
+      inset 2px 2px 6px 0 rgb(116 125 136 / 30%);
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    background: rgba(0, 0, 0, 0.03);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+  }
+
+  input:hover {
+    background: none;
+  }
+
+  input:focus {
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  input::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 0.5; /* Firefox */
+    box-shadow: none;
+  }
+}
+
+ .formButton {
+    color: white;
+    backdrop-filter: blur(4px);
+    margin-top: 2em;
+    border-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 0)
+      )
+      2 100%;
+    transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    &:hover {
+      background-color: rgb(225 225 245 / 20%);
+    }
+  }

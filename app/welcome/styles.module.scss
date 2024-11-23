@@ -1,0 +1,10 @@
+@use "@/styles/mixins.scss" as *;
+
+.pageContainer {
+  @include transparentContainer;
+  width: 80%;
+  position: relative;
+  max-width: 900px;
+}
+
+  
