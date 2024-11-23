@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 // import LaunchButton from "./LaunchButton";
 import styles from "./SpinWheel.module.scss";
 import { Place } from "@/interfaces/place";
+import classNames from "classnames";
 const BASE_COLORS = [
   "#7400B8",
   "#6930C3",
@@ -51,6 +52,9 @@ const generateColor = (index: number, total: number): string => {
 };
 
 const SpinWheel = ({ items }: { items: Place[] }) => {
+  const wheelBorderSize = 3;
+  const wheelFont = "Lato, Quicksand, sans-serif";
+  const resetDuration = 0;
   const wheelSize = 25;
   const turns = 4;
   const spinDuration = 3000;
@@ -58,89 +62,77 @@ const SpinWheel = ({ items }: { items: Place[] }) => {
     wheelSize * Math.tan(((360 / items.length / 2) * Math.PI) / 180);
 
   const [selectedItem, setSelectedItem] = useState(1);
-  const [wheelVars, setWheelVars] = useState({});
-  const [spinning, setSpinning] = useState("");
+  const [spinning, setSpinning] = useState(false);
 
   const selectItem = () => {
-    // SelectedItem must be different from previous one
     const itemsWithoutSelected = items.filter((item) => {
-      // if only one item, return this item
       if (items.length < 3) {
         return item.id;
       }
       return item.id !== selectedItem;
     });
+
     const randomItem =
       itemsWithoutSelected[
         Math.floor(Math.random() * itemsWithoutSelected.length)
       ].id;
-    setSpinning("spinning");
+    setSpinning(true);
     setSelectedItem(randomItem);
-    setTimeout(() => setSpinning(""), spinDuration);
+    setTimeout(() => setSpinning(false), spinDuration);
   };
-
-  useEffect(
-    () =>
-      setWheelVars({
-        "--wheel-size": `${wheelSize}em`,
-        "--PI": Math.PI,
-        "--nb-turn": turns,
-        "--spinning-duration": `${spinDuration}ms`,
-        "--nb-item": items.length,
-        "--selected-item": selectedItem - 1,
-        "--item-bg-size": polygonSide + "em",
-      }),
-    [wheelSize, turns, spinDuration, items, selectedItem, polygonSide]
-  );
-
-  const stylingItems =
-    items.length === 1
-      ? {
-          wheelItem: {
-            height: "100%",
-            left: "0%",
-            width: "100%",
-          },
-          itemBackground: { clipPath: "unset" },
-        }
-      : items.length < 3
-      ? {
-          wheelItem: {
-            height: "unset",
-            left: "50%",
-            width: "50%",
-          },
-          itemBackground: { clipPath: "unset" },
-        }
-      : {};
+  const rotation = -360 * (selectedItem - 1 / (items.length ?? 1));
 
   return (
     <>
-      <div className={styles["wheel-container"]}>
+      <div
+        className={classNames(
+          `block relative box-content w-[calc(${wheelSize}em+2*${wheelBorderSize}em)] h-[calc(${wheelSize}em+2*${wheelBorderSize}em)] mx-auto border-[3px] border-solid rounded-full select-none`,
+          styles["wheel-container"]
+        )}
+      >
         <div
-          className={`${styles["wheel"]} ${styles[spinning]}`}
-          style={wheelVars}
+          className={classNames(
+            `block relative box-content mx-auto w-[${wheelSize}em] h-[${wheelSize}em] overflow-hidden rounded-full border border-white border-[0.3em] bg-white cursor-pointer] transition-transform`,
+            { "pointer-events-none": spinning }
+          )}
+          style={{
+            //TODO: fix the rotation
+            transform: `rotate(${(spinning ? turns : 1) * rotation}deg)`,
+            transitionDuration: spinning
+              ? `${spinDuration}ms`
+              : `${resetDuration}ms`,
+          }}
           onClick={selectItem}
         >
           {items.map((item, index) => (
             <div
-              className={`${styles["wheel-item"]} ${styles["animate"]} ${styles["rotate"]}`}
+              className={`flex absolute box-border top-1/2 left-1/2 w-1/2 text-right text-white font-[${wheelFont}] 
+              ${styles["animate"]} 
+              ${styles["rotate"]} 
+              `}
               key={item.id}
-              style={
-                {
-                  "--item-nb": index,
-                  ...stylingItems.wheelItem,
-                } as React.CSSProperties
-              }
+              style={{
+                height: items.length <= 2 ? "100%" : `${polygonSide}rem`,
+                width: items.length > 1 ? "50%" : "100%",
+                left: items.length > 1 ? "50%" : "0%",
+                transformOrigin: "center left",
+                transform: `translateY(-50%)
+                        rotate(calc(${index}*(360deg/${items.length})))`,
+              }}
             >
               <div
-                className={styles["itemBackground"]}
+                className={classNames(
+                  `w-full relative right-0 top-0 flex justify-end items-center`
+                )}
                 style={{
+                  WebkitClipPath:
+                    items.length >= 3
+                      ? "polygon(0 50%, 100% 0, 110% 33%, 110% 66%, 100% 100%)"
+                      : "unset",
                   backgroundColor: generateColor(index, items.length),
-                  ...stylingItems.itemBackground,
                 }}
               >
-                <p>{item.name}</p>
+                <p className="relative z-2 right-6 text-white">{item.name}</p>
               </div>
             </div>
           ))}

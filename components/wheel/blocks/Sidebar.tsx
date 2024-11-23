@@ -21,12 +21,10 @@ const Sidebar = ({ places, setPlaces }: SidebarProps): JSX.Element => {
   const handleAddPlace = (): void => {
     if (!newPlace.name.trim()) return;
 
-    const newId = Math.max(...places.map((p) => parseInt(p.id, 10))) + 1;
-
     setPlaces([
       ...places,
       {
-        id: newId.toString(),
+        id: places.length + 1,
         name: newPlace.name,
         link: newPlace.link,
         isSelected: true,
@@ -39,7 +37,7 @@ const Sidebar = ({ places, setPlaces }: SidebarProps): JSX.Element => {
 
   return (
     <>
-      <aside className="w-96 bg-white rounded-l-lg p-8 flex flex-col">
+      <aside className="w-96 bg-white rounded-l-2xl p-8 flex flex-col">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">
           Your favorite places
         </h2>
