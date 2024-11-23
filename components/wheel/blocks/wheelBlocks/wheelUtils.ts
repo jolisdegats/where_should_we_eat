@@ -1,6 +1,6 @@
 export const WHEEL_CONFIG = {
     size: 25,
-    borderSize: 3,
+    borderSize: 0.3,
     turns: 4,
     spinDuration: 3000,
     font: "Lato, Quicksand, sans-serif",

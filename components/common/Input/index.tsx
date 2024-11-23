@@ -13,6 +13,7 @@ interface InputProps {
   showIcon?: boolean;
   iconType?: IconProps["type"];
   className?: string;
+  color?: "light" | "dark";
 }
 
 export const Input = ({
@@ -24,9 +25,10 @@ export const Input = ({
   onIconClick,
   showIcon = false,
   iconType = "dice",
+  color = "light",
 }: InputProps) => {
   return (
-    <div className={classNames(styles.inputWrapper, className)}>
+    <div className={classNames(styles.inputWrapper, styles[color], className)}>
       <input
         name={name}
         placeholder={placeholder}
@@ -36,13 +38,14 @@ export const Input = ({
       {showIcon && (
         <Button
           variant="text"
+          color={color}
           type="button"
           onClick={onIconClick}
           className={classNames(styles.iconButton, {
             [styles["iconButton--close"]]: iconType === "close",
           })}
         >
-          <Icon type={iconType} />
+          <Icon color={color} type={iconType} />
         </Button>
       )}
     </div>

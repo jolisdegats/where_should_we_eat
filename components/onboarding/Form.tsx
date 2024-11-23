@@ -51,7 +51,7 @@ export const Form = ({
     >
       <h2>{data.title}</h2>
       {isAddPlacesPage ? (
-        <AddPlacesForm />
+        <AddPlacesForm className="max-w-[70%] mx-auto" canRemove />
       ) : (
         <WelcomeForm
           celebrity={celebrity}

@@ -1,15 +1,26 @@
   .inputContainer {
-    width: 70%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .placesList {
-    width: 70%;
+    width: 100%;
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    gap: 0.6em;
+    padding: 0.5em 0.5em;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.03);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+    box-shadow: 2px 2px 6px 0 rgb(255 255 255 / 30%),
+    -2px -2px 6px 0 rgb(116 125 136 / 20%),
+    inset -2px -2px 6px 0 rgb(255 255 255 / 30%),
+    inset 2px 2px 6px 0 rgb(116 125 136 / 30%);
   }
   
   .placeItem {
@@ -17,22 +28,32 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    padding: 0.8em 1em;
-    border-radius: 15px;
-    background: rgba(0, 0, 0, 0.03);
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(1px);
-    box-shadow: 2px 2px 6px 0 rgb(255 255 255 / 30%),
-      -2px -2px 6px 0 rgb(116 125 136 / 20%),
-      inset -2px -2px 6px 0 rgb(255 255 255 / 30%),
-      inset 2px 2px 6px 0 rgb(116 125 136 / 30%);
-    color: #fff;
+    padding: 0.3em 1em;
+    border-radius: 5px;
     font-family: Montserrat, sans-serif;
     font-weight: 500;
     transition: all 0.2s ease-in-out;
   
     &:hover {
-      background: rgba(0, 0, 0, 0.05);
+      background: rgba(0, 0, 0, 0.025);
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 0.5em;
+  }
+
+  .showButtonsOnHover {
+    .actions {
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+    }
+  
+    &:hover {
+      .actions {
+        opacity: 1;
+      }
     }
   }
   
@@ -43,7 +64,7 @@
     cursor: pointer;
     padding: 0.2em 0.5em;
     font-size: 1em;
-    opacity: 0.7;
+    opacity: 0.5;
     transition: opacity 0.2s ease-in-out;
   
     &:hover {

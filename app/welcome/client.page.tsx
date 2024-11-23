@@ -21,19 +21,21 @@ const shuffleArrayWithInitial = (
   return shuffled;
 };
 
-const Onboarding = ({
-  initialCelebrityNumber,
-  initialUsername,
-}: {
+interface OnboardingProps {
   initialCelebrityNumber: number;
   initialUsername: string;
-}) => {
+}
+
+const Onboarding = ({
+  initialCelebrityNumber,
+  initialUsername = "",
+}: OnboardingProps) => {
   const [currentPage, setCurrentPage] = useState<
     (typeof ROUTES)[keyof typeof ROUTES]
   >(ROUTES.WELCOME);
   const [sidebarRight, setSidebarRight] = useState(false);
   const [fadeAnimation, setFadeAnimation] = useState(false);
-  const [username, setUsername] = useState(initialUsername);
+  const [username, setUsername] = useState<string>(initialUsername);
   const saveUsername = (value: string) => {
     value = value.trimEnd().trimStart();
     setUsername(value);

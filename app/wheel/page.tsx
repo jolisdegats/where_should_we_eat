@@ -7,27 +7,16 @@ export const metadata = {
   description: "A fun way to decide where to eat",
 };
 
-const mapPlacesFromCookie = (
-  place: any,
-  places: any[],
-  index: number
-): Place => {
-  return {
-    id: index + 1,
-    name: place,
-    isSelected: true,
-  };
-};
-
 export default async function Page() {
   const cookieStore = await cookies();
   const placesData = cookieStore.get("wswe_places");
+  const username = cookieStore.get("wswe_username");
 
-  const initialPlaces: Place[] = placesData
-    ? JSON.parse(placesData.value).map((place: string, index: number) =>
-        mapPlacesFromCookie(place, JSON.parse(placesData.value), index)
-      )
-    : [];
-
-  return <ClientPage initialPlaces={initialPlaces} />;
+  const initialPlaces: Place[] = placesData ? JSON.parse(placesData.value) : [];
+  return (
+    <ClientPage
+      initialPlaces={initialPlaces}
+      initialUsername={username?.value}
+    />
+  );
 }

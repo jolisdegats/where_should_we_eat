@@ -1,3 +1,5 @@
+@use "../../../styles/variables" as *;
+
 .inputWrapper {
   position: relative;
   width: 100%;
@@ -11,14 +13,20 @@
     margin-bottom: 1em;
     border: none;
     border-radius: 15px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+// Light variant (default)
+.light {
+  input {
     box-shadow: 2px 2px 6px 0 rgb(255 255 255 / 30%),
       -2px -2px 6px 0 rgb(116 125 136 / 20%),
       inset -2px -2px 6px 0 rgb(255 255 255 / 30%),
       inset 2px 2px 6px 0 rgb(116 125 136 / 30%);
     color: #fff;
-    font-family: Montserrat, sans-serif;
-    font-weight: 500;
-    transition: all 0.2s ease-in-out;
     background: rgba(0, 0, 0, 0.03);
     backdrop-filter: blur(1px);
     -webkit-backdrop-filter: blur(1px);
@@ -32,14 +40,71 @@
     }
 
     &::placeholder {
-      color: white;
+      color: $white;
       opacity: 0.5;
+    }
+  }
+
+  .iconButton {
+    color: $white;
+    
+    &:hover {
+      color: $white;
+      opacity: 0.7;
+    }
+
+    &--close {
+      opacity: 0.5 !important;
+      &:hover {
+        opacity: 1 !important;
+      }
+    }
+  }
+}
+
+// Dark variant
+.dark {
+  input {
+    background: rgba(0, 0, 0, 0.03);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+    box-shadow: 2px 2px 6px 0 rgb(255 255 255 / 30%),
+      -2px -2px 6px 0 rgb(116 125 136 / 20%),
+      inset -2px -2px 6px 0 rgb(255 255 255 / 30%),
+      inset 2px 2px 6px 0 rgb(116 125 136 / 30%);
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    &:focus {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.7);
+      opacity: 0.5;
+    }
+  }
+
+  .iconButton {
+    color: $black;
+    
+    &:hover {
+      color: $black;
+      opacity: 0.7;
+    }
+
+    &--close {
+      opacity: 0.5 !important;
+      &:hover {
+        opacity: 1 !important;
+      }
     }
   }
 }
 
 .iconButton {
-  color: white;
   position: absolute;
   right: 12px;
   top: calc(50% - 0.5em);
@@ -52,15 +117,5 @@
   align-items: center;
   justify-content: center;
   z-index: 2;
-  &:hover {
-    color: white;
-    opacity: 0.7;
-  }
+}
 
-  &--close {
-    opacity: 0.5 !important;
-    &:hover {
-      opacity: 1 !important;
-    }
-  }
-} 

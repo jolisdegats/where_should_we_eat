@@ -1,6 +1,6 @@
 import { Place } from "@/interfaces/place";
 import classNames from "classnames";
-import styles from "./SpinWheel.module.scss";
+import styles from "./index.module.scss";
 import { WHEEL_CONFIG } from "./wheelUtils";
 
 interface WheelSegmentProps {

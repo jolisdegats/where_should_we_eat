@@ -1,15 +1,11 @@
-import { useState, useEffect } from "react";
-import styles from "./SpinWheel.module.scss";
-import { Place } from "@/interfaces/place";
-import classNames from "classnames";
-import { WheelSegment } from "./WheelSegment";
 import { WHEEL_CONFIG, generateColor } from "./wheelUtils";
+import { Place } from "@/interfaces/place";
+import { WheelSegment } from "./WheelSegment";
+import classNames from "classnames";
+import { useEffect, useState } from "react";
+import styles from "./index.module.scss";
 
-interface SpinWheelProps {
-  items: Place[];
-}
-
-const SpinWheel = ({ items }: SpinWheelProps) => {
+const Wheel = ({ items }: { items: Place[] }) => {
   const [selectedItem, setSelectedItem] = useState(1);
   const [spinning, setSpinning] = useState(false);
   const [totalRotation, setTotalRotation] = useState(0);
@@ -53,19 +49,23 @@ const SpinWheel = ({ items }: SpinWheelProps) => {
     <div
       className={classNames(
         styles["wheel-container"],
-        "block relative box-content mx-auto rounded-full select-none border-[3px] border-solid",
-        `w-[calc(${WHEEL_CONFIG.size}em+2*${WHEEL_CONFIG.borderSize}em)]`,
-        `h-[calc(${WHEEL_CONFIG.size}em+2*${WHEEL_CONFIG.borderSize}em)]`
+        "block relative box-content mx-auto rounded-full select-none border-solid"
       )}
+      style={{
+        borderWidth: `${WHEEL_CONFIG.borderSize}em`,
+        width: `calc(${WHEEL_CONFIG.size}em + 2 * ${WHEEL_CONFIG.borderSize}em)`,
+        height: `calc(${WHEEL_CONFIG.size}em + 2 * ${WHEEL_CONFIG.borderSize}em)`,
+      }}
     >
       <div
         className={classNames(
-          "block relative box-content mx-auto overflow-hidden rounded-full transition-transform border border-white border-[0.3em]",
-          `w-[${WHEEL_CONFIG.size}em]`,
-          `h-[${WHEEL_CONFIG.size}em]`,
+          "block relative box-content mx-auto overflow-hidden rounded-full transition-transform border border-white",
           spinning ? "pointer-events-none" : "cursor-pointer"
         )}
         style={{
+          borderWidth: `5px`,
+          width: `${WHEEL_CONFIG.size}em`,
+          height: `${WHEEL_CONFIG.size}em`,
           transform: `rotate(${totalRotation}deg)`,
           transitionDuration: `${spinning ? WHEEL_CONFIG.spinDuration : 0}ms`,
           transitionTimingFunction: "cubic-bezier(0.2, 0.6, 0.3, 1)",
@@ -88,4 +88,4 @@ const SpinWheel = ({ items }: SpinWheelProps) => {
   );
 };
 
-export default SpinWheel;
+export default Wheel;

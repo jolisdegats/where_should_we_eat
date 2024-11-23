@@ -8,6 +8,13 @@ const WelcomeForm = ({
   handleNextCelebrity,
   changePage,
   buttonText,
+}: {
+  celebrity: string;
+  username: string;
+  changeUsername: (value: string) => void;
+  handleNextCelebrity: () => void;
+  changePage: () => void;
+  buttonText: string;
 }) => {
   return (
     <>
