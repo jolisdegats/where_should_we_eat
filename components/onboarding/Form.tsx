@@ -1,7 +1,6 @@
 import { PageParams } from "@/app/welcome/types";
 import styles from "./form.module.scss";
 import { ANIMATION_VARS, ROUTES } from "@/app/welcome/constants";
-import { ChangeEvent } from "react";
 import WelcomeForm from "./WelcomeContent/WelcomeForm";
 import AddPlacesForm from "./AddPlaces/AddPlacesForm";
 

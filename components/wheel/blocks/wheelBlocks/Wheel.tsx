@@ -4,14 +4,16 @@ import { WheelSegment } from "./WheelSegment";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import styles from "./index.module.scss";
+import { ResultAnnouncement } from "../ResultAnnouncement";
 
 const Wheel = ({ items }: { items: Place[] }) => {
-  const [selectedItem, setSelectedItem] = useState(1);
+  const [selectedItem, setSelectedItem] = useState(items[0].id);
   const [spinning, setSpinning] = useState(false);
   const [totalRotation, setTotalRotation] = useState(0);
+  const [showResult, setShowResult] = useState(false);
 
   useEffect(() => {
-    setSelectedItem(1);
+    setSelectedItem(items[0].id);
     setSpinning(false);
     setTotalRotation(0);
   }, [items]);
@@ -21,6 +23,7 @@ const Wheel = ({ items }: { items: Place[] }) => {
 
   const handleSpinEnd = () => {
     setSpinning(false);
+    setShowResult(true);
   };
 
   const handleSpin = () => {
@@ -46,45 +49,54 @@ const Wheel = ({ items }: { items: Place[] }) => {
   };
 
   return (
-    <div
-      className={classNames(
-        styles["wheel-container"],
-        "block relative box-content mx-auto rounded-full select-none border-solid"
+    <>
+      {showResult && selectedItem && (
+        <ResultAnnouncement
+          result={items.find((item) => item.id === selectedItem)?.name}
+          onAnimationEnd={() => setShowResult(false)}
+        />
       )}
-      style={{
-        borderWidth: `${WHEEL_CONFIG.borderSize}em`,
-        width: `calc(${WHEEL_CONFIG.size}em + 2 * ${WHEEL_CONFIG.borderSize}em)`,
-        height: `calc(${WHEEL_CONFIG.size}em + 2 * ${WHEEL_CONFIG.borderSize}em)`,
-      }}
-    >
+
       <div
         className={classNames(
-          "block relative box-content mx-auto overflow-hidden rounded-full transition-transform border border-white",
-          spinning ? "pointer-events-none" : "cursor-pointer"
+          styles["wheel-container"],
+          "block relative box-content mx-auto rounded-full select-none border-solid"
         )}
         style={{
-          borderWidth: `5px`,
-          width: `${WHEEL_CONFIG.size}em`,
-          height: `${WHEEL_CONFIG.size}em`,
-          transform: `rotate(${totalRotation}deg)`,
-          transitionDuration: `${spinning ? WHEEL_CONFIG.spinDuration : 0}ms`,
-          transitionTimingFunction: "cubic-bezier(0.2, 0.6, 0.3, 1)",
+          borderWidth: `${WHEEL_CONFIG.borderSize}em`,
+          width: `calc(${WHEEL_CONFIG.size}em + 2 * ${WHEEL_CONFIG.borderSize}em)`,
+          height: `calc(${WHEEL_CONFIG.size}em + 2 * ${WHEEL_CONFIG.borderSize}em)`,
         }}
-        onClick={handleSpin}
-        onTransitionEnd={handleSpinEnd}
       >
-        {items.map((item, index) => (
-          <WheelSegment
-            key={item.id}
-            item={item}
-            index={index}
-            totalItems={items.length}
-            polygonSide={polygonSide}
-            color={generateColor(index, items.length)}
-          />
-        ))}
+        <div
+          className={classNames(
+            "block relative box-content mx-auto overflow-hidden rounded-full transition-transform border border-white",
+            spinning ? "pointer-events-none" : "cursor-pointer"
+          )}
+          style={{
+            borderWidth: `5px`,
+            width: `${WHEEL_CONFIG.size}em`,
+            height: `${WHEEL_CONFIG.size}em`,
+            transform: `rotate(${totalRotation}deg)`,
+            transitionDuration: `${spinning ? WHEEL_CONFIG.spinDuration : 0}ms`,
+            transitionTimingFunction: "cubic-bezier(0.2, 0.6, 0.3, 1)",
+          }}
+          onClick={handleSpin}
+          onTransitionEnd={handleSpinEnd}
+        >
+          {items.map((item, index) => (
+            <WheelSegment
+              key={item.id}
+              item={item}
+              index={index}
+              totalItems={items.length}
+              polygonSide={polygonSide}
+              color={generateColor(index, items.length)}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

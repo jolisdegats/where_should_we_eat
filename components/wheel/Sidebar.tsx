@@ -1,14 +1,6 @@
 "use client";
-import { useState } from "react";
-import Modal from "@/components/common/Modal";
-import PlaceCard from "./blocks/PlaceCard";
 import { Place } from "@/interfaces/place";
 import AddPlacesForm from "../onboarding/AddPlaces/AddPlacesForm";
-
-interface NewPlace {
-  name: string;
-  link: string;
-}
 
 interface SidebarProps {
   places: Place[];

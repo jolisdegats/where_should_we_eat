@@ -25,9 +25,15 @@ const AddPlacesForm = ({
   canEdit?: boolean;
   canRemove?: boolean;
 }) => {
-  const [places, setPlaces] = useState<Place[]>(initialPlaces);
+  const [places, setPlaces] = useState<Place[]>(
+    initialPlaces.map((place) =>
+      typeof place === "string"
+        ? { id: crypto.randomUUID(), name: place, isSelected: true }
+        : place
+    )
+  );
   const [currentPlace, setCurrentPlace] = useState("");
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [editingIndex, setEditingIndex] = useState<string | null>(null);
   const [editValue, setEditValue] = useState("");
   const editContainerRef = useRef<HTMLDivElement>(null);
 
@@ -46,14 +52,14 @@ const AddPlacesForm = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [editingIndex]);
 
-  const handleAddPlace = (place: string) => {
-    if (place.trim()) {
-      const newPlace = {
-        name: place.trim(),
-        id: places.length + 1,
+  const handleAddPlace = () => {
+    if (currentPlace.trim()) {
+      const newPlace: Place = {
+        id: crypto.randomUUID(),
+        name: currentPlace.trim(),
         isSelected: true,
       };
-      const newPlaces = [newPlace, ...places];
+      const newPlaces = [...places, newPlace];
       setPlaces(newPlaces);
       handlePlacesChange?.(newPlaces);
       setCurrentPlace("");
@@ -61,27 +67,28 @@ const AddPlacesForm = ({
     }
   };
 
-  const handleRemovePlace = (indexToRemove: number) => {
-    const newPlaces = places.filter((_, index) => index !== indexToRemove);
+  const handleRemovePlace = (id: string) => {
+    const newPlaces = places.filter((place) => place.id !== id);
     setPlaces(newPlaces);
     handlePlacesChange?.(newPlaces);
     Cookies.set(COOKIE_NAME, JSON.stringify(newPlaces));
   };
 
-  const handleEditPlace = (index: number) => {
-    setEditingIndex(index);
-    setEditValue(places[index].name);
+  const handleEditPlace = (id: string) => {
+    setEditingIndex(id);
+    setEditValue(places.find((place) => place.id === id)?.name || "");
   };
 
-  const handleSaveEdit = (index: number) => {
-    if (editValue.trim() && editValue !== places[index].name) {
-      const newPlaces = [...places];
-      newPlaces[index] = { ...newPlaces[index], name: editValue.trim() };
+  const handleSaveEdit = (id: string) => {
+    if (editValue.trim()) {
+      const newPlaces = places.map((place) =>
+        place.id === id ? { ...place, name: editValue.trim() } : place
+      );
       setPlaces(newPlaces);
       handlePlacesChange?.(newPlaces);
+      setEditingIndex(null);
       Cookies.set(COOKIE_NAME, JSON.stringify(newPlaces));
     }
-    setEditingIndex(null);
   };
 
   const cancelEdit = () => {
@@ -100,23 +107,23 @@ const AddPlacesForm = ({
         onChange={(e) => setCurrentPlace(e.target.value)}
         iconType="add"
         showIcon={!!currentPlace}
-        onIconClick={() => handleAddPlace(currentPlace)}
+        onIconClick={() => handleAddPlace()}
       />
 
       {!!places.length && (
         <ul className={styles.placesList}>
-          {places.map((place, index) => (
+          {places.map((place) => (
             <li
-              key={index}
+              key={place.id}
               className={classNames(styles.placeItem, {
                 "bg-white/10": color === "dark",
                 "text-black": color === "dark",
                 "text-white": color === "light",
                 [styles.showButtonsOnHover]: hoverForButtons,
-                [styles.editing]: editingIndex === index,
+                [styles.editing]: editingIndex === place.id,
               })}
             >
-              {editingIndex === index ? (
+              {editingIndex === place.id ? (
                 <div ref={editContainerRef} className={styles.editContainer}>
                   <input
                     type="text"
@@ -126,7 +133,7 @@ const AddPlacesForm = ({
                     autoFocus
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        handleSaveEdit(index);
+                        handleSaveEdit(place.id);
                       } else if (e.key === "Escape") {
                         cancelEdit();
                       }
@@ -136,7 +143,7 @@ const AddPlacesForm = ({
                     <Button
                       variant="text"
                       color={color}
-                      onClick={() => handleSaveEdit(index)}
+                      onClick={() => handleSaveEdit(place.id)}
                       className={styles.actionButton}
                       title="Save changes"
                     >
@@ -162,7 +169,7 @@ const AddPlacesForm = ({
                         <Button
                           variant="text"
                           color={color}
-                          onClick={() => handleEditPlace(index)}
+                          onClick={() => handleEditPlace(place.id)}
                           className={styles.actionButton}
                         >
                           <Icon type="edit" color={color} />
@@ -172,7 +179,7 @@ const AddPlacesForm = ({
                         <Button
                           variant="text"
                           color={color}
-                          onClick={() => handleRemovePlace(index)}
+                          onClick={() => handleRemovePlace(place.id)}
                           className={styles.actionButton}
                         >
                           <Icon type="close" color={color} />
