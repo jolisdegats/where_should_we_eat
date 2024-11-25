@@ -5,8 +5,10 @@
 
 export const names = [
   'add',
+  'checkmark',
   'close',
   'dice',
   'edit',
-  'search'
+  'search',
+  'undo'
 ] as const

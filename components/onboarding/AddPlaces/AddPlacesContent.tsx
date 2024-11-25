@@ -30,7 +30,12 @@ export const AddPlacesContent = ({
       <p>Spin the wheel, and let the fun begin!</p>
       <br />
       <Button onClick={() => router.push("/")}>Let's spin!</Button>
-      <Button className="mt-2" variant="text" onClick={() => changePage()}>
+      <Button
+        className="mt-2"
+        variant="text"
+        onClick={() => changePage()}
+        color="dark"
+      >
         <small>
           <i>Actually, I'm not sure of that name anymore...</i>
         </small>

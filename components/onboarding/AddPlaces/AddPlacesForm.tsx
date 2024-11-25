@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/common/Input";
 import styles from "./styles.module.scss";
 import Cookies from "js-cookie";
@@ -28,7 +28,23 @@ const AddPlacesForm = ({
   const [places, setPlaces] = useState<Place[]>(initialPlaces);
   const [currentPlace, setCurrentPlace] = useState("");
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [editedPlace, setEditedPlace] = useState<string>("");
+  const [editValue, setEditValue] = useState("");
+  const editContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        editingIndex !== null &&
+        editContainerRef.current &&
+        !editContainerRef.current.contains(event.target as Node)
+      ) {
+        cancelEdit();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [editingIndex]);
 
   const handleAddPlace = (place: string) => {
     if (place.trim()) {
@@ -54,14 +70,23 @@ const AddPlacesForm = ({
 
   const handleEditPlace = (index: number) => {
     setEditingIndex(index);
+    setEditValue(places[index].name);
   };
-  const handlePlaceEdited = (index: number, value: string) => {
-    const newPlaces = places.map((place, i) =>
-      i === index ? { ...place, name: value } : place
-    );
-    setPlaces(newPlaces);
-    handlePlacesChange?.(newPlaces);
+
+  const handleSaveEdit = (index: number) => {
+    if (editValue.trim() && editValue !== places[index].name) {
+      const newPlaces = [...places];
+      newPlaces[index] = { ...newPlaces[index], name: editValue.trim() };
+      setPlaces(newPlaces);
+      handlePlacesChange?.(newPlaces);
+      Cookies.set(COOKIE_NAME, JSON.stringify(newPlaces));
+    }
     setEditingIndex(null);
+  };
+
+  const cancelEdit = () => {
+    setEditingIndex(null);
+    setEditValue("");
   };
 
   return (
@@ -88,39 +113,75 @@ const AddPlacesForm = ({
                 "text-black": color === "dark",
                 "text-white": color === "light",
                 [styles.showButtonsOnHover]: hoverForButtons,
+                [styles.editing]: editingIndex === index,
               })}
             >
-              <>
-                <input
-                  type="text"
-                  value={place.name}
-                  disabled={editingIndex !== index}
-                />
-                {(canEdit || canRemove) && (
+              {editingIndex === index ? (
+                <div ref={editContainerRef} className={styles.editContainer}>
+                  <input
+                    type="text"
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                    className={styles.editInput}
+                    autoFocus
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleSaveEdit(index);
+                      } else if (e.key === "Escape") {
+                        cancelEdit();
+                      }
+                    }}
+                  />
                   <div className={styles.actions}>
-                    {canEdit && (
-                      <Button
-                        variant="text"
-                        color={color}
-                        onClick={() => handleEditPlace(index)}
-                        className={styles.actionButton}
-                      >
-                        <Icon type="edit" color={color} />
-                      </Button>
-                    )}
-                    {canRemove && (
-                      <Button
-                        variant="text"
-                        color={color}
-                        onClick={() => handleRemovePlace(index)}
-                        className={styles.actionButton}
-                      >
-                        <Icon type="close" color={color} />
-                      </Button>
-                    )}
+                    <Button
+                      variant="text"
+                      color={color}
+                      onClick={() => handleSaveEdit(index)}
+                      className={styles.actionButton}
+                      title="Save changes"
+                    >
+                      <Icon type="checkmark" color={color} />
+                    </Button>
+                    <Button
+                      variant="text"
+                      color={color}
+                      onClick={cancelEdit}
+                      className={styles.actionButton}
+                      title="Cancel editing"
+                    >
+                      <Icon type="undo" color={color} />
+                    </Button>
                   </div>
-                )}
-              </>
+                </div>
+              ) : (
+                <>
+                  <span>{place.name}</span>
+                  {(canEdit || canRemove) && (
+                    <div className={styles.actions}>
+                      {canEdit && (
+                        <Button
+                          variant="text"
+                          color={color}
+                          onClick={() => handleEditPlace(index)}
+                          className={styles.actionButton}
+                        >
+                          <Icon type="edit" color={color} />
+                        </Button>
+                      )}
+                      {canRemove && (
+                        <Button
+                          variant="text"
+                          color={color}
+                          onClick={() => handleRemovePlace(index)}
+                          className={styles.actionButton}
+                        >
+                          <Icon type="close" color={color} />
+                        </Button>
+                      )}
+                    </div>
+                  )}
+                </>
+              )}
             </li>
           ))}
         </ul>
