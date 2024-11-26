@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import confetti from "canvas-confetti";
@@ -18,75 +18,63 @@ export const ResultAnnouncement = ({
 }: ResultAnnouncementProps) => {
   const [showResult, setShowResult] = useState(false);
   const username = Cookies.get("wswe_username");
+  const timeoutRef = useRef<NodeJS.Timeout>();
+  const isActiveRef = useRef(true);
+
   const animation = CELEB_ANIMATIONS[username] || {
     text: (result) => `And the winner is ${result}!`,
     className: "default-animation",
   };
 
+  const fireConfetti = useCallback(() => {
+    if (!isActiveRef.current) return;
+
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.7 },
+      colors: [
+        "#FF0000",
+        "#00FF00",
+        "#0000FF",
+        "#FFFF00",
+        "#FF00FF",
+        "#00FFFF",
+      ],
+    });
+
+    // Schedule next burst
+    timeoutRef.current = setTimeout(fireConfetti, 3000);
+  }, []);
+
   useEffect(() => {
-    setTimeout(() => {
-      setShowResult(true);
+    // Start the animation
+    setShowResult(true);
+    isActiveRef.current = true;
+    fireConfetti();
 
-      // Confetti configuration
-      const count = 200;
-      const defaults = {
-        origin: { y: 0.7 },
-        colors: [
-          "#FF0000",
-          "#00FF00",
-          "#0000FF",
-          "#FFFF00",
-          "#FF00FF",
-          "#00FFFF",
-        ],
-      };
-
-      const fireConfetti = (particleRatio: number, opts: confetti.Options) => {
-        confetti({
-          ...defaults,
-          ...opts,
-          particleCount: Math.floor(count * particleRatio),
-        });
-      };
-
-      // Fire multiple confetti bursts
-      fireConfetti(0.25, {
-        spread: 26,
-        startVelocity: 55,
-      });
-
-      fireConfetti(0.2, {
-        spread: 60,
-      });
-
-      fireConfetti(0.35, {
-        spread: 100,
-        decay: 0.91,
-        scalar: 0.8,
-      });
-
-      fireConfetti(0.1, {
-        spread: 120,
-        startVelocity: 25,
-        decay: 0.92,
-        scalar: 1.2,
-      });
-
-      fireConfetti(0.1, {
-        spread: 120,
-        startVelocity: 45,
-      });
-
-      // End animation after duration
-      const duration = 4000;
-      setTimeout(() => {
-        onAnimationEnd?.();
-      }, duration);
-    }, 100);
-  }, [onAnimationEnd]);
+    // Cleanup function
+    return () => {
+      isActiveRef.current = false;
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [fireConfetti]);
 
   return createPortal(
-    <div className={styles.resultContainer}>
+    <div
+      className={styles.resultContainer}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          isActiveRef.current = false;
+          if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+          }
+          onAnimationEnd?.();
+        }
+      }}
+    >
       <div className={classNames(styles.result, { [styles.show]: showResult })}>
         {animation.gif && (
           <div className={styles.gifContainer}>

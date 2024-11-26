@@ -7,13 +7,13 @@ import styles from "./index.module.scss";
 import { ResultAnnouncement } from "../ResultAnnouncement";
 
 const Wheel = ({ items }: { items: Place[] }) => {
-  const [selectedItem, setSelectedItem] = useState(items[0].id);
+  const [selectedItem, setSelectedItem] = useState(items[0]?.id);
   const [spinning, setSpinning] = useState(false);
   const [totalRotation, setTotalRotation] = useState(0);
   const [showResult, setShowResult] = useState(false);
 
   useEffect(() => {
-    setSelectedItem(items[0].id);
+    setSelectedItem(items[0]?.id);
     setSpinning(false);
     setTotalRotation(0);
   }, [items]);
