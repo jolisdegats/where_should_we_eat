@@ -20,6 +20,8 @@ export const ResultAnnouncement = ({
   const username = Cookies.get("wswe_username");
   const timeoutRef = useRef<NodeJS.Timeout>();
   const isActiveRef = useRef(true);
+  const TOTAL_DURATION = 7000; // 7 seconds
+  const FIRE_INTERVAL = 3000; // 3 seconds between fires
 
   const animation = CELEB_ANIMATIONS[username] || {
     text: (result) => `And the winner is ${result}!`,
@@ -28,7 +30,7 @@ export const ResultAnnouncement = ({
 
   const fireConfetti = useCallback(() => {
     if (!isActiveRef.current) return;
-
+    
     confetti({
       particleCount: 100,
       spread: 70,
@@ -44,23 +46,31 @@ export const ResultAnnouncement = ({
     });
 
     // Schedule next burst
-    timeoutRef.current = setTimeout(fireConfetti, 3000);
+    timeoutRef.current = setTimeout(fireConfetti, FIRE_INTERVAL);
   }, []);
 
   useEffect(() => {
-    // Start the animation
     setShowResult(true);
     isActiveRef.current = true;
     fireConfetti();
 
-    // Cleanup function
+    // Set timeout for total duration
+    const totalDurationTimeout = setTimeout(() => {
+      isActiveRef.current = false;
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      onAnimationEnd?.();
+    }, TOTAL_DURATION);
+
     return () => {
       isActiveRef.current = false;
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
+      clearTimeout(totalDurationTimeout);
     };
-  }, [fireConfetti]);
+  }, [fireConfetti, onAnimationEnd]);
 
   return createPortal(
     <div
