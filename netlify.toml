@@ -1,9 +1,23 @@
 [build]
   command = "npm run build"
   publish = ".next"
+  environment = { NODE_VERSION = "18" }
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-[build.environment]
-  NODE_VERSION = "18" 
+# Handle static assets caching
+[[headers]]
+  for = "/gifs/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable" 
