@@ -22,11 +22,6 @@ The demo of the project is currently hosted on Netlify (frontend). Have a look a
 Frontend : Firebase, FirebaseUI, React, React-router-dom, SASS</p>
  <br/>
 
-<h2>Install</h2>
-
-<p>Just run <code>yarn</code> in your IDE to install all dependencies and <code>yarn start</code> to launch. Local demo should open on http://localhost:3000.</p>
- <br/>
-
 <h2>Incoming features</h2>
 
 <ul>
